@@ -8,14 +8,20 @@ public class WordPrediction {
 	public static void main(String args[]) {
 		net = new WordNetwork();
 		
-		net.learn("Please drink your tea while it is still hot", 3);
-		net.learn("Why would anybody drink tea when it is cold", 3);
-		net.learn("Somewhere in the world somebody is drinking tea luke warm", 3);
+		int nGramLength = 2;
 		
-		//net.save("test.xdsl");
+		net.learn("The dogs name is Jack", nGramLength);
+		net.learn("My first name was Jim", nGramLength);
+		net.learn("If my name is Henry then what is your name", nGramLength);
+		net.learn("If my dogs name is John then what is his breed", nGramLength);
+		net.learn("What color is the dog with name Alex", nGramLength);
 		
-		tryPhrase("drink your tea");
-		tryPhrase("somebody is drinking tea");
+		net.save("test.xdsl");
+		
+		tryPhrase("My first name was");
+		tryPhrase("The dogs name is");
+		tryPhrase("Our last dog was");
+		tryPhrase("If my name is");
 		
 	}
 	
