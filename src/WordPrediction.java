@@ -5,13 +5,19 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.*;
+import java.awt.Color;
+
 public class WordPrediction {
 
 	public static WordNetwork net;
+	
+	public String structure = "markov-chain";
 
 	public static void main(String args[]) throws FileNotFoundException
 	{
-		net = new WordNetwork();
+		//net = new BayesianNetwork();
+		net = new MarkovChain();
 		
 		int nGramLength = 2;
 		
@@ -23,7 +29,7 @@ public class WordPrediction {
 		//net.learn("If my dogs name is John then what is his breed", nGramLength);
 		//net.learn("What color is the dog with name Alex", nGramLength);
 		
-		net.save("test.xdsl");
+		//net.save("test.xdsl");
 		
 		//tryPhrase("My first name was");
 		//tryPhrase("The dogs name is");
@@ -32,12 +38,19 @@ public class WordPrediction {
 		
 		tryPhrase("It was the");
 		tryPhrase("When the world was");
+		
+		tryPhrase("life guards had");
 		tryPhrase("There was a king");
 		
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run(){
+				new WordPredictionPanel(net);
+			}
+		});
 	}
 	
 	public static void tryPhrase(String phrase){
-		System.out.println(phrase + "... " + net.predictNextWord(phrase));
+		System.out.println(phrase + "... " + net.predictNextWord(phrase, 4));
 	}
 	
 	public static void learnNewFile(String fileName, int nGramLength) throws FileNotFoundException

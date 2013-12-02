@@ -8,7 +8,7 @@ PATH=%PATH%;./lib
 set DLL_PATH_SET=1
 
 :build
-javac -cp ./lib/smile.jar; -d ./classes -sourcepath ./src/*.java
+javac -cp ./lib/smile.jar; -d ./classes ./src/*.java
 
 java -cp ./classes;./lib/smile.jar; WordPrediction
 
