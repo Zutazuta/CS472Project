@@ -13,10 +13,12 @@ public class WordPredictionPanel extends JFrame implements DocumentListener {
     private JLabel fieldLabel;
     private JLabel predictionLabel;
 	
-	private WordNetwork net;
+	private WordNetwork net1;
+	private WordNetwork net2;
 	
-	public WordPredictionPanel(WordNetwork network){
-		net = network;
+	public WordPredictionPanel(WordNetwork network1, WordNetwork network2){
+		net1 = network1;
+		net2 = network2;
 	
 		setTitle("Word Prediction");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,7 +44,7 @@ public class WordPredictionPanel extends JFrame implements DocumentListener {
     }
 	
     private void predictNextWord() {
-		predictionLabel.setText(net.predictNextWord(textField.getText(), 4));
+		predictionLabel.setText(net1.predictNextWord(textField.getText(), 4) + " | " + net2.predictNextWord(textField.getText(), 4));
     }
 	
     public void insertUpdate(DocumentEvent event) {

@@ -10,33 +10,21 @@ import java.awt.Color;
 
 public class WordPrediction {
 
-	public static WordNetwork net;
+	public static WordNetwork net1;
+	public static WordNetwork net2;
 	
-	public String structure = "markov-chain";
-
 	public static void main(String args[]) throws FileNotFoundException
 	{
-		//net = new BayesianNetwork();
-		net = new MarkovChain();
+		net1 = new BayesianNetwork();
+		net2 = new MarkovChain();
 		
 		int nGramLength = 2;
 		
 		learnNewFile("ToTC.txt", nGramLength);
 		
-		//net.learn("The dogs name is Jack", nGramLength);
-		//net.learn("My first name was Jim", nGramLength);
-		//net.learn("If my name is Henry then what is your name", nGramLength);
-		//net.learn("If my dogs name is John then what is his breed", nGramLength);
-		//net.learn("What color is the dog with name Alex", nGramLength);
+		//net1.save("test.xdsl");
 		
-		//net.save("test.xdsl");
-		
-		//tryPhrase("My first name was");
-		//tryPhrase("The dogs name is");
-		//tryPhrase("Our last dog was");
-		//tryPhrase("If my name is");
-		
-		tryPhrase("It was the");
+		tryPhrase("It was the best of");
 		tryPhrase("When the world was");
 		
 		tryPhrase("life guards had");
@@ -44,13 +32,13 @@ public class WordPrediction {
 		
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
-				new WordPredictionPanel(net);
+				new WordPredictionPanel(net1, net2);
 			}
 		});
 	}
 	
 	public static void tryPhrase(String phrase){
-		System.out.println(phrase + "... " + net.predictNextWord(phrase, 4));
+		System.out.println(phrase + "... [Bayesian: " + net1.predictNextWord(phrase, 4) + "] [Markov: " + net2.predictNextWord(phrase, 4) + "]" );
 	}
 	
 	public static void learnNewFile(String fileName, int nGramLength) throws FileNotFoundException
@@ -84,7 +72,8 @@ public class WordPrediction {
 				
 				System.out.println(build);
 				//sentenceList.add(build);
-				net.learn(build, nGramLength);
+				net1.learn(build, nGramLength);
+				net2.learn(build, nGramLength);
 				
 				build = "";	
 			}
