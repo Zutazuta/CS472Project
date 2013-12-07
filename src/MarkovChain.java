@@ -82,7 +82,17 @@ class MarkovChain extends WordNetwork {
 			
 			if(_nGrams.get(phrase) != null){
 				LinkedList<Arc> arcs = _nGrams.get(phrase);
-				mostProbableWord = arcs.get(0).getNGram(); // TODO: Need to actually get the most probable arc
+				
+				String bestWord = "";
+				int highestCount = 0;
+				for(int j=0; j<arcs.size(); j++){
+					if(arcs.get(j).getCount() > highestCount){
+						bestWord = arcs.get(j).getNGram();
+						highestCount = arcs.get(j).getCount();
+					}
+				}
+				
+				mostProbableWord = bestWord;
 			}		
 		}
 	
